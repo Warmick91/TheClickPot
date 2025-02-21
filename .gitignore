@@ -1,0 +1,146 @@
+# =============================
+# Visual Studio & .NET Ignore
+# =============================
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Mono auto-generated files
+mono_crash.*
+
+# Build results (applies to TheClickPot.WebAPI)
+TheClickPot.WebAPI/[Dd]ebug/
+TheClickPot.WebAPI/[Dd]ebugPublic/
+TheClickPot.WebAPI/[Rr]elease/
+TheClickPot.WebAPI/[Rr]eleases/
+TheClickPot.WebAPI/x64/
+TheClickPot.WebAPI/x86/
+TheClickPot.WebAPI/[Ww][Ii][Nn]32/
+TheClickPot.WebAPI/[Aa][Rr][Mm]/
+TheClickPot.WebAPI/[Aa][Rr][Mm]64/
+TheClickPot.WebAPI/bld/
+TheClickPot.WebAPI/[Bb]in/
+TheClickPot.WebAPI/[Oo]bj/
+TheClickPot.WebAPI/[Ll]og/
+TheClickPot.WebAPI/[Ll]ogs/
+
+# Visual Studio 2015/2017 cache/options directory
+TheClickPot.WebAPI/.vs/
+
+# Visual Studio 2017 auto-generated files
+Generated\ Files/
+
+# MSTest test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUnit test results
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# Benchmark results
+BenchmarkDotNet.Artifacts/
+
+# .NET Core artifacts
+TheClickPot.WebAPI/project.lock.json
+TheClickPot.WebAPI/project.fragment.lock.json
+TheClickPot.WebAPI/artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Publish Web Output
+TheClickPot.WebAPI/*.publish.xml
+TheClickPot.WebAPI/*.azurePubxml
+PublishScripts/
+
+# NuGet Packages
+TheClickPot.WebAPI/*.nupkg
+TheClickPot.WebAPI/packages/
+
+# Microsoft Azure Build Output
+csx/
+*.build.csdef
+
+# Microsoft Azure Emulator
+ecf/
+rcf/
+
+# SQL Server files
+*.mdf
+*.ldf
+*.ndf
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Visual Studio cache files
+*.[Cc]ache
+
+# Logs and Debugging Files
+*.log
+*.swp
+
+# =============================
+# Angular & Node.js Ignore
+# =============================
+
+# Node modules and dependencies
+TheClickPot.Portal/node_modules/
+TheClickPot.Portal/package-lock.json
+TheClickPot.Portal/yarn.lock
+
+# Angular compiled output
+TheClickPot.Portal/dist/
+TheClickPot.Portal/tmp/
+TheClickPot.Portal/out-tsc/
+TheClickPot.Portal/.angular/cache
+
+# Logs
+TheClickPot.Portal/npm-debug.log
+TheClickPot.Portal/yarn-error.log
+
+# Coverage reports
+TheClickPot.Portal/coverage/
+
+# Build analytics
+TheClickPot.Portal/.build-analytics
+
+# Rollup-test output
+TheClickPot.Portal/modules/rollup-test/dist/
+
+# Husky pre-commit hooks
+TheClickPot.Portal/.husky/_
+
+# Environment files (DO NOT COMMIT!)
+TheClickPot.Portal/.env
+TheClickPot.Portal/src/environments/environment*.ts
+
+# Cache, temporary, and editor files
+.DS_Store
+.idea/
+.project
+.classpath
+.settings/
+.vscode/*
+.history/
+
+# Miscellaneous
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.swo
+*.swp
+*.docx
+*.log
