@@ -9,6 +9,15 @@
 *.userosscache
 *.sln.docstates
 
+# Ignore Visual Studio cache & settings
+.vs/
+slnx.sqlite
+*.db
+*.vscode/
+applicationhost.config
+*.vsix
+
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -144,3 +153,4 @@ Desktop.ini
 *.swp
 *.docx
 *.log
+
