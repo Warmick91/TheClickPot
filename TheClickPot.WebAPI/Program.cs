@@ -7,7 +7,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular",
-        builder => builder.WithOrigins("https://white-stone-0d26b6410.4.azurestaticapps.net/")
+        builder => builder.WithOrigins("https://white-stone-0d26b6410.4.azurestaticapps.net")
         .AllowAnyMethod()
         .AllowAnyHeader());
 });
