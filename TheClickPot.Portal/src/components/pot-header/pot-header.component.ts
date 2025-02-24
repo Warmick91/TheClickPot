@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PrimeIcons, MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
+import { Subpage } from '../../app/app.component';
 
 @Component({
   selector: 'app-pot-header',
@@ -9,21 +10,34 @@ import { MenubarModule } from 'primeng/menubar';
   styleUrl: './pot-header.component.scss',
 })
 export class PotHeaderComponent {
+  @Input() currentSubpage!: Subpage;
+  @Output() currentSubpageChange = new EventEmitter<Subpage>();
+
   items: MenuItem[] = [
     {
       label: 'Home',
       icon: PrimeIcons.HOME,
-      routerLink: '/',
+      command: () => {
+        this.changeCurrentSubpage(Subpage.Home);
+      },
     },
     {
       label: 'About The Click Pot',
       icon: PrimeIcons.INFO_CIRCLE,
-      routerLink: '/about',
+      command: () => {
+        this.changeCurrentSubpage(Subpage.About);
+      },
     },
     {
       label: 'Contact',
       icon: PrimeIcons.ADDRESS_BOOK,
-      routerLink: '/contact',
+      command: () => {
+        this.changeCurrentSubpage(Subpage.Contact);
+      },
     },
   ];
+
+  changeCurrentSubpage(newSubpage: Subpage): void {
+    this.currentSubpageChange.emit(newSubpage);
+  }
 }

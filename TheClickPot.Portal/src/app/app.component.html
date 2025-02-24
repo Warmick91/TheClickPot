@@ -1,0 +1,14 @@
+<app-pot-header [(currentSubpage)]="appCurrentSubpage"></app-pot-header>
+@switch (appCurrentSubpage) {
+  @case ('home') {
+    <p>CHECK HOME</p>
+  }
+  @case ('about') {
+    <p>CHECK ABOUT</p>
+  }
+  @case ('contact') {
+    <p>CHECK CONTACT</p>
+  }
+}
+
+<router-outlet />
