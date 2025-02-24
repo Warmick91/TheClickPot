@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PotHeaderComponent } from './pot-header.component';
 
 describe('PotHeaderComponent', () => {
@@ -8,9 +7,8 @@ describe('PotHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PotHeaderComponent]
-    })
-    .compileComponents();
+      imports: [PotHeaderComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PotHeaderComponent);
     component = fixture.componentInstance;

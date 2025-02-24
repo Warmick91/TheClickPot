@@ -5,9 +5,17 @@ import { PotHeaderComponent } from '../components/pot-header/pot-header.componen
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, PotHeaderComponent],
-  template: '<p>TEST</p> <app-pot-header /> <router-outlet />',
+  templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'TheClickPot';
+
+  appCurrentSubpage: Subpage = Subpage.Home;
+}
+
+export enum Subpage {
+  Home = 'home',
+  About = 'about',
+  Contact = 'contact',
 }
