@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PrimeIcons, MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
-import { Subpage } from '../../app/app.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pot-header',
@@ -9,35 +9,34 @@ import { Subpage } from '../../app/app.component';
   templateUrl: './pot-header.component.html',
   styleUrl: './pot-header.component.scss',
 })
-export class PotHeaderComponent {
-  @Input() currentSubpage!: Subpage;
-  @Output() currentSubpageChange = new EventEmitter<Subpage>();
+export class PotHeaderComponent implements OnInit {
+  items: MenuItem[] | undefined;
 
-  items: MenuItem[] = [
-    {
-      label: 'Home',
-      icon: PrimeIcons.HOME,
-      command: () => {
-        this.changeCurrentSubpage(Subpage.Home);
-      },
-    },
-    {
-      label: 'About The Click Pot',
-      icon: PrimeIcons.INFO_CIRCLE,
-      command: () => {
-        this.changeCurrentSubpage(Subpage.About);
-      },
-    },
-    {
-      label: 'Contact',
-      icon: PrimeIcons.ADDRESS_BOOK,
-      command: () => {
-        this.changeCurrentSubpage(Subpage.Contact);
-      },
-    },
-  ];
+  constructor(private _router: Router) {}
 
-  changeCurrentSubpage(newSubpage: Subpage): void {
-    this.currentSubpageChange.emit(newSubpage);
+  ngOnInit() {
+    this.items = [
+      {
+        label: 'Home',
+        icon: PrimeIcons.HOME,
+        command: () => {
+          this._router.navigate(['/home']);
+        },
+      },
+      {
+        label: 'About The Click Pot',
+        icon: PrimeIcons.INFO_CIRCLE,
+        command: () => {
+          this._router.navigate(['/about']);
+        },
+      },
+      {
+        label: 'Contact',
+        icon: PrimeIcons.ADDRESS_BOOK,
+        command: () => {
+          this._router.navigate(['/contact']);
+        },
+      },
+    ];
   }
 }
