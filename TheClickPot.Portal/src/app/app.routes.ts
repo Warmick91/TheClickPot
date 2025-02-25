@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
-import { PotHomeComponent } from '../components/pot-home/pot-home.component';
 import { PotAboutComponent } from '../components/pot-about/pot-about.component';
+import { PotAuthComponent } from '../components/pot-auth/pot-auth.component';
 import { PotContactComponent } from '../components/pot-contact/pot-contact.component';
+import { PotHomeComponent } from '../components/pot-home/pot-home.component';
 
 export const routes: Routes = [
   {
@@ -15,5 +16,9 @@ export const routes: Routes = [
   {
     path: 'contact',
     component: PotContactComponent,
+  },
+  {
+    path: 'auth',
+    component: PotAuthComponent,
   },
 ];
