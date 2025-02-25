@@ -1,9 +1,19 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+import { PotHomeComponent } from '../components/pot-home/pot-home.component';
+import { PotAboutComponent } from '../components/pot-about/pot-about.component';
+import { PotContactComponent } from '../components/pot-contact/pot-contact.component';
 
 export const routes: Routes = [
   {
-    path: '.',
-    component: AppComponent,
+    path: 'home',
+    component: PotHomeComponent,
+  },
+  {
+    path: 'about',
+    component: PotAboutComponent,
+  },
+  {
+    path: 'contact',
+    component: PotContactComponent,
   },
 ];

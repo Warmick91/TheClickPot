@@ -10,12 +10,4 @@ import { PotHeaderComponent } from '../components/pot-header/pot-header.componen
 })
 export class AppComponent {
   title = 'TheClickPot';
-
-  appCurrentSubpage: Subpage = Subpage.Home;
-}
-
-export enum Subpage {
-  Home = 'home',
-  About = 'about',
-  Contact = 'contact',
 }
