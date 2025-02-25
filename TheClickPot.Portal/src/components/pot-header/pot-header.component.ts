@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PrimeIcons, MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuItem, PrimeIcons } from 'primeng/api';
+import { MenubarModule } from 'primeng/menubar';
 
 @Component({
   selector: 'app-pot-header',
@@ -35,6 +35,13 @@ export class PotHeaderComponent implements OnInit {
         icon: PrimeIcons.ADDRESS_BOOK,
         command: () => {
           this._router.navigate(['/contact']);
+        },
+      },
+      {
+        label: 'Login',
+        icon: PrimeIcons.USER,
+        command: () => {
+          this._router.navigate(['/auth']);
         },
       },
     ];

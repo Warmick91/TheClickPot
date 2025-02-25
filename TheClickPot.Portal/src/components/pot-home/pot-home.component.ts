@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-pot-home',
   imports: [],
   templateUrl: './pot-home.component.html',
-  styleUrl: './pot-home.component.scss'
+  styleUrl: './pot-home.component.scss',
 })
-export class PotHomeComponent {
-
-}
+export class PotHomeComponent {}

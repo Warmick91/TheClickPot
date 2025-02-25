@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-pot-contact',
   imports: [],
   templateUrl: './pot-contact.component.html',
-  styleUrl: './pot-contact.component.scss'
+  styleUrl: './pot-contact.component.scss',
 })
-export class PotContactComponent {
-
-}
+export class PotContactComponent {}
