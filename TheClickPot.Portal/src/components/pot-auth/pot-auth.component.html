@@ -1,1 +1,33 @@
 <p>pot-auth works!</p>
+<p-card [style]="{ width: '25rem', overflow: 'hidden' }">
+  <ng-template #header>
+    <img alt="Card" class="login-card-logo" src="images/pot_test_logo.png" />
+  </ng-template>
+  <ng-template #title> Login </ng-template>
+  <ng-template #subtitle> Don't have an account? Create today! </ng-template>
+  <form #loginForm="ngForm" name="loginForm" (ngSubmit)="login(loginForm)">
+    <div class="input-group">
+      <p-iftalabel>
+        <input class="form-control" id="email" name="email" pInputText [(ngModel)]="email" required />
+        <label for="email">Email</label>
+      </p-iftalabel>
+      <p-iftalabel variant="over">
+        <input class="form-control" id="password" name="password" pInputText [(ngModel)]="password" required />
+        <label for="password">Password</label>
+      </p-iftalabel>
+    </div>
+
+    <!-- Buttons inside form -->
+    <div class="flex gap-4 mt-1">
+      <p-button label="Cancel" type="button" severity="secondary" [outlined]="true" (click)="cancel(loginForm)" />
+      <p-button label="Save" type="submit" />
+    </div>
+  </form>
+</p-card>
+
+<!-- DELETE AFTER TESTING -->
+<div style="margin-top: 50px">
+  <p>DELETE AFTER TESTING</p>
+  <pre>{{ loginForm.value | json }}</pre>
+  <pre>{{ loginForm.errors | json }}</pre>
+</div>

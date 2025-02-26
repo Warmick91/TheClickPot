@@ -8,9 +8,8 @@ describe('PotAuthComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PotAuthComponent]
-    })
-    .compileComponents();
+      imports: [PotAuthComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PotAuthComponent);
     component = fixture.componentInstance;
