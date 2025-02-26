@@ -43,7 +43,34 @@ namespace TheClickPot.WebAPI.Controllers
 			var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
 			var token = _tokenService.GenerateToken(user);
-			return Ok(new { token });
+
+			Response.Cookies.Append("jwt", token, new CookieOptions
+			{
+				HttpOnly = true,
+				Secure = true,
+				SameSite = SameSiteMode.Strict,
+				Expires = DateTime.UtcNow.AddHours(3)
+			});
+
+			return Ok(new { message = "Login successful" });
+		}
+
+		[HttpPost("logout")]
+		public IActionResult Logout()
+		{
+			Response.Cookies.Delete("jwt");
+			return Ok(new { message = "Logged out" });
+		}
+
+		[HttpGet("check-auth")]
+		public IActionResult CheckAuth()
+		{
+			var user = HttpContext.User;
+			if(user.Identity?.IsAuthenticated == true)
+			{
+				return Ok(new { message = "Authenticated" });
+			}
+			return Unauthorized();
 		}
 	}
 
