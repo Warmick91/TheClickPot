@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -56,9 +57,18 @@ namespace TheClickPot.WebAPI.Controllers
 		}
 
 		[HttpPost("logout")]
-		public IActionResult Logout()
+		public async Task<IActionResult> Logout()
 		{
-			Response.Cookies.Delete("jwt");
+			await HttpContext.SignOutAsync(); // ✅ Ensures authentication is cleared
+
+			Response.Cookies.Append("jwt", "", new CookieOptions
+			{
+				HttpOnly = true,
+				Secure = true,
+				SameSite = SameSiteMode.None,
+				Expires = DateTime.UtcNow.AddSeconds(-1) // ✅ Force cookie expiration
+			});
+
 			return Ok(new { message = "Logged out" });
 		}
 

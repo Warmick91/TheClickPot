@@ -17,7 +17,7 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
       if (error.status === 401) {
         console.warn('Unauthorized! Redirecting to login...');
         authService.authSignal.set(false);
-        router.navigate(['/login']);
+        router.navigate(['/auth']);
       }
       return throwError(() => error);
     })
