@@ -11,10 +11,10 @@ export class AuthService {
 
   authSignal = signal<boolean>(false);
 
-  constructor(private _http: HttpClient) {}
+  constructor(public readonly http: HttpClient) {}
 
   login(credentials: { email: string; password: string }): Observable<{ message: string }> {
-    return this._http.post<{ message: string }>(`${this._apiUrl}/login`, credentials, { withCredentials: true }).pipe(
+    return this.http.post<{ message: string }>(`${this._apiUrl}/login`, credentials).pipe(
       tap(response => {
         if (response.message) {
           this.authSignal.set(true);
@@ -28,13 +28,13 @@ export class AuthService {
   }
 
   logout() {
-    this._http.post(`${this._apiUrl}/logout`, {}, { withCredentials: true }).subscribe(() => {
+    this.http.post(`${this._apiUrl}/logout`, {}).subscribe(() => {
       this.authSignal.set(false);
     });
   }
 
   checkAuth(): void {
-    this._http.get(`${this._apiUrl}/check-auth`, { withCredentials: true }).subscribe({
+    this.http.get(`${this._apiUrl}/check-auth`).subscribe({
       next: () => this.authSignal.set(true),
       error: () => this.authSignal.set(false),
     });

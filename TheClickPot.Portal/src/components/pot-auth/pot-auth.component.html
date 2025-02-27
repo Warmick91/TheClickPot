@@ -27,13 +27,17 @@
     <div class="flex gap-4 mt-1">
       <p-button label="Cancel" type="button" severity="secondary" [outlined]="true" (click)="cancel(loginForm)" />
       <p-button label="Save" type="submit" />
+      <p-button (click)="logout()">Logout</p-button>
     </div>
   </form>
 </p-card>
 
 <!-- DELETE AFTER TESTING -->
 <div style="margin-top: 50px">
-  <p>DELETE AFTER TESTING</p>
-  <pre>{{ loginForm.value | json }}</pre>
-  <pre>{{ loginForm.errors | json }}</pre>
+  <p>// TEST //</p>
+  <pre>Login form values: <br />{{ loginForm.value | json }}</pre>
+  <pre>Login form errors: <br />{{ loginForm.errors | json }}</pre>
+  <pre>Login status: <br />{{ authService.authSignal() }}</pre>
+  <p-button (click)="authService.checkAuth()">Check Auth</p-button>
+  <p>// END TEST //</p>
 </div>
