@@ -18,10 +18,10 @@ export class PotAuthComponent {
   password = '';
   errorMessage = '';
 
-  constructor(private readonly _authService: AuthService) {}
+  constructor(public readonly authService: AuthService) {}
 
   login() {
-    this._authService.login({ email: this.email, password: this.password }).subscribe({
+    this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: () => {
         console.log('(SUCCESS) User logged in successfully!');
         this.errorMessage = '';
@@ -34,7 +34,7 @@ export class PotAuthComponent {
   }
 
   logout() {
-    this._authService.logout();
+    this.authService.logout();
   }
 
   cancel(loginForm: NgForm) {
