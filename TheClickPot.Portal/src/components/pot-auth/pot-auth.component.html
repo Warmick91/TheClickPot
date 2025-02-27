@@ -5,7 +5,7 @@
   </ng-template>
   <ng-template #title> Login </ng-template>
   <ng-template #subtitle> Don't have an account? Create today! </ng-template>
-  <form #loginForm="ngForm" name="loginForm" (ngSubmit)="login(loginForm)">
+  <form #loginForm="ngForm" name="loginForm" (ngSubmit)="login()">
     <div class="input-group">
       <p-iftalabel>
         <input class="form-control" id="email" name="email" pInputText [(ngModel)]="email" required />
@@ -17,7 +17,13 @@
       </p-iftalabel>
     </div>
 
-    <!-- Buttons inside form -->
+    <!-- Display Error Message -->
+    @if (errorMessage) {
+      <div class="error-message">
+        {{ errorMessage }}
+      </div>
+    }
+
     <div class="flex gap-4 mt-1">
       <p-button label="Cancel" type="button" severity="secondary" [outlined]="true" (click)="cancel(loginForm)" />
       <p-button label="Save" type="submit" />
