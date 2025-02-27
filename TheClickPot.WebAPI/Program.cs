@@ -74,16 +74,21 @@ builder.Services.AddAuthorization();
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowAngular",
-		builder => builder.WithOrigins("https://white-stone-0d26b6410.4.azurestaticapps.net")
+		builder => builder.WithOrigins(
+			"https://white-stone-0d26b6410.4.azurestaticapps.net",
+			"http://localhost:4200", 
+			"https://localhost:7207"
+			)
+		.AllowCredentials()
 		.AllowAnyMethod()
 		.AllowAnyHeader());
 });
 
 var app = builder.Build();
 
+app.UseCors("AllowAngular");
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("AllowAngular");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

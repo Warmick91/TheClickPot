@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,16 +9,22 @@ export class AuthService {
   private readonly _apiUrl = 'https://localhost:7207/api/auth';
   private readonly tokenKey = 'jwt_token';
 
-  authSignal = signal<boolean>(this.hasToken());
+  authSignal = signal<boolean>(false);
 
   constructor(private _http: HttpClient) {}
 
-  private hasToken(): boolean {
-    return !!localStorage.getItem(this.tokenKey);
-  }
-
-  login(credentials: { email: string; password: string }): Observable<object> {
-    return this._http.post(`${this._apiUrl}/login`, credentials, { withCredentials: true }).pipe(tap(() => this.authSignal.set(true)));
+  login(credentials: { email: string; password: string }): Observable<{ message: string }> {
+    return this._http.post<{ message: string }>(`${this._apiUrl}/login`, credentials, { withCredentials: true }).pipe(
+      tap(response => {
+        if (response.message) {
+          this.authSignal.set(true);
+        }
+      }),
+      catchError(error => {
+        console.error('(ERROR) Login request failed: ', error);
+        return throwError(() => error);
+      })
+    );
   }
 
   logout() {
