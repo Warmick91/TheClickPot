@@ -59,14 +59,14 @@ namespace TheClickPot.WebAPI.Controllers
 		[HttpPost("logout")]
 		public async Task<IActionResult> Logout()
 		{
-			await HttpContext.SignOutAsync(); // ✅ Ensures authentication is cleared
+			await HttpContext.SignOutAsync();
 
 			Response.Cookies.Append("jwt", "", new CookieOptions
 			{
 				HttpOnly = true,
 				Secure = true,
 				SameSite = SameSiteMode.None,
-				Expires = DateTime.UtcNow.AddSeconds(-1) // ✅ Force cookie expiration
+				Expires = DateTime.UtcNow.AddSeconds(-1)
 			});
 
 			return Ok(new { message = "Logged out" });
