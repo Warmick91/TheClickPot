@@ -18,10 +18,10 @@ export class PotAuthComponent {
   password = '';
   errorMessage = '';
 
-  constructor(public readonly authService: AuthService) {}
+  constructor(private readonly _authService: AuthService) {}
 
   login() {
-    this.authService.login({ email: this.email, password: this.password }).subscribe({
+    this._authService.login({ email: this.email, password: this.password }).subscribe({
       next: () => {
         console.log('(SUCCESS) User logged in successfully!');
         this.errorMessage = '';
@@ -34,7 +34,7 @@ export class PotAuthComponent {
   }
 
   logout() {
-    this.authService.logout();
+    this._authService.logout();
   }
 
   cancel(loginForm: NgForm) {
@@ -52,4 +52,14 @@ export class PotAuthComponent {
       return 'An unknown error occurred. Please try again.';
     }
   }
+
+  // TEST //
+  public checkAuth(): void {
+    this._authService.checkAuth();
+  }
+
+  public getAuthStatus(): boolean {
+    return this._authService.authSignal();
+  }
+  // END TEST //
 }
