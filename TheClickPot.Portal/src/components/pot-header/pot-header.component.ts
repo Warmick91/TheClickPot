@@ -44,6 +44,13 @@ export class PotHeaderComponent implements OnInit {
           this._router.navigate(['/auth']);
         },
       },
+      {
+        label: 'Admin Dashboard',
+        icon: PrimeIcons.DATABASE,
+        command: () => {
+          this._router.navigate(['/dashboard']);
+        },
+      },
     ];
   }
 }

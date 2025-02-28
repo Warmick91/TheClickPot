@@ -37,7 +37,7 @@
   <p>// TEST //</p>
   <pre>Login form values: <br />{{ loginForm.value | json }}</pre>
   <pre>Login form errors: <br />{{ loginForm.errors | json }}</pre>
-  <pre>Login status: <br />{{ authService.authSignal() }}</pre>
-  <p-button (click)="authService.checkAuth()">Check Auth</p-button>
+  <p-button (click)="checkAuth()">Check Auth</p-button>
+  <pre>Login status: <br />{{ getAuthStatus() }}</pre>
   <p>// END TEST //</p>
 </div>
