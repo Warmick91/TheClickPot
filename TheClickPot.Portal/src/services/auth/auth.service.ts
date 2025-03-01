@@ -1,20 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
+import { StaticUrls } from '../../urls/staticUrls';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly _apiUrl = 'https://localhost:7207/api/auth';
-  private readonly tokenKey = 'jwt_token';
-
   authSignal = signal<boolean>(false);
 
-  constructor(public readonly http: HttpClient) {}
+  constructor(private readonly _http: HttpClient) {}
 
   login(credentials: { email: string; password: string }): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>(`${this._apiUrl}/login`, credentials).pipe(
+    return this._http.post<{ message: string }>(`${StaticUrls.API_AUTH_ENDPOINT}/login`, credentials).pipe(
       tap(response => {
         if (response.message) {
           this.authSignal.set(true);
@@ -28,22 +26,15 @@ export class AuthService {
   }
 
   logout() {
-    this.http.post(`${this._apiUrl}/logout`, {}).subscribe(() => {
+    this._http.post(`${StaticUrls.API_AUTH_ENDPOINT}/logout`, {}).subscribe(() => {
       this.authSignal.set(false);
     });
   }
 
   checkAuth(): void {
-    this.http.get(`${this._apiUrl}/check-auth`).subscribe({
+    this._http.get(`${StaticUrls.API_AUTH_ENDPOINT}/check-auth`).subscribe({
       next: () => this.authSignal.set(true),
       error: () => this.authSignal.set(false),
-    });
-  }
-
-  checkAdminRights(): void {
-    this.http.get(`${this._apiUrl}/test-admin`).subscribe({
-      next: () => console.log('Admin rights confirmed!'),
-      error: () => console.log('Admin rights not confirmed!'),
     });
   }
 }

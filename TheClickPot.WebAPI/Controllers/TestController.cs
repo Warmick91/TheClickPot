@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TheClickPot.WebAPI.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TestController : ControllerBase
