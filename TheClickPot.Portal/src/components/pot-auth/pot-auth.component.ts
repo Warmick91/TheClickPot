@@ -5,6 +5,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { Card } from 'primeng/card';
 import { IftaLabelModule } from 'primeng/iftalabel';
+import { AdminService } from '../../services/admin/admin.service';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -18,7 +19,10 @@ export class PotAuthComponent {
   password = '';
   errorMessage = '';
 
-  constructor(private readonly _authService: AuthService) {}
+  constructor(
+    private readonly _authService: AuthService,
+    private readonly _adminService: AdminService
+  ) {}
 
   login() {
     this._authService.login({ email: this.email, password: this.password }).subscribe({
@@ -63,7 +67,7 @@ export class PotAuthComponent {
   }
 
   public checkAdminRights(): void {
-    return this._authService.checkAdminRights();
+    return this._adminService.checkAdminRights();
   }
   // END TEST //
 }

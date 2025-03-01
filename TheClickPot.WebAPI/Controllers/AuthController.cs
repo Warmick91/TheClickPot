@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -30,7 +31,16 @@ namespace TheClickPot.WebAPI.Controllers
 		[HttpPost("register")]
 		public async Task<IActionResult> Register([FromBody] RegisterDto model)
 		{
+			if(await _userManager.FindByEmailAsync(model.Email) != null)
+			{
+				return BadRequest("Email is already taken.");
+			}
+
 			var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+			var role = !string.IsNullOrEmpty(model.Role) ? model.Role : "User";
+
+			await _userManager.AddToRoleAsync(user, "User");
+
 			var result = await _userManager.CreateAsync(user, model.Password);
 
 			if (!result.Succeeded) return BadRequest(result.Errors);
@@ -86,20 +96,14 @@ namespace TheClickPot.WebAPI.Controllers
 			return Unauthorized();
 		}
 
-		// TEST
-		[Authorize(Policy = "RequireAdmin")]
-		[HttpGet("test-admin")]
-		public IActionResult CheckAdmin()
-		{
-			return Ok(new { message = "You are an admin" });
-		}
-		// END TEST
 	}
 
 	public class RegisterDto
 	{
 		public required string Email { get; set; }
 		public required string Password { get; set; }
+
+		public required string? Role { get; set; }
 	}
 
 	public class LoginDto
