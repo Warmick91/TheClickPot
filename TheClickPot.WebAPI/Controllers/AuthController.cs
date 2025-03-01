@@ -18,12 +18,14 @@ namespace TheClickPot.WebAPI.Controllers
 	public class AuthController : ControllerBase
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly RoleManager<IdentityRole> _roleManager;
 		private readonly SignInManager<ApplicationUser> _signInManager;
 		private readonly ITokenService _tokenService;
 
-		public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ITokenService tokenService)
+		public AuthController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, ITokenService tokenService)
 		{
 			_userManager = userManager;
+			_roleManager = roleManager;
 			_signInManager = signInManager;
 			_tokenService = tokenService;
 		}
@@ -31,19 +33,21 @@ namespace TheClickPot.WebAPI.Controllers
 		[HttpPost("register")]
 		public async Task<IActionResult> Register([FromBody] RegisterDto model)
 		{
-			if(await _userManager.FindByEmailAsync(model.Email) != null)
+			if (await _userManager.FindByEmailAsync(model.Email) != null)
 			{
 				return BadRequest("Email is already taken.");
 			}
 
 			var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-			var role = !string.IsNullOrEmpty(model.Role) ? model.Role : "User";
-
-			await _userManager.AddToRoleAsync(user, "User");
 
 			var result = await _userManager.CreateAsync(user, model.Password);
-
 			if (!result.Succeeded) return BadRequest(result.Errors);
+
+			var role = !string.IsNullOrEmpty(model.Role) ? model.Role : "User";
+			if (!await _roleManager.RoleExistsAsync(role)) 
+				return BadRequest("Invalid role specified.");
+
+			await _userManager.AddToRoleAsync(user, "User");
 
 			return Ok(new { message = "User created successfully" });
 		}
