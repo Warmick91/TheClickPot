@@ -4,6 +4,6 @@ namespace TheClickPot.WebAPI.Interfaces
 {
 	public interface ITokenService
 	{
-		string GenerateToken(ApplicationUser user);
+		Task<string> GenerateToken(ApplicationUser user);
 	}
 }

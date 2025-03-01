@@ -39,4 +39,11 @@ export class AuthService {
       error: () => this.authSignal.set(false),
     });
   }
+
+  checkAdminRights(): void {
+    this.http.get(`${this._apiUrl}/test-admin`).subscribe({
+      next: () => console.log('Admin rights confirmed!'),
+      error: () => console.log('Admin rights not confirmed!'),
+    });
+  }
 }

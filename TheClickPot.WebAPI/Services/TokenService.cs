@@ -1,4 +1,6 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -10,13 +12,15 @@ namespace TheClickPot.WebAPI.Services
 	public class TokenService : ITokenService
 	{
 		private readonly IConfiguration _config;
+		private readonly UserManager<ApplicationUser> _userManager;
 
-		public TokenService(IConfiguration config)
+		public TokenService(IConfiguration config, UserManager<ApplicationUser> userManager)
 		{
 			_config = config;
+			_userManager = userManager;
 		}
 
-		public string GenerateToken(ApplicationUser user)
+		public async Task<string> GenerateToken(ApplicationUser user)
 		{
 			var secretKey = _config["JwtSettings:Secret"];
 			var issuer = _config["JwtSettings:Issuer"];
@@ -29,20 +33,27 @@ namespace TheClickPot.WebAPI.Services
 
 			var key = Encoding.UTF8.GetBytes(secretKey);
 
-			var claims = new[]
+			var claims = new List<Claim>
 			{
 				new Claim(JwtRegisteredClaimNames.Sub, user.Id),
 				new Claim(JwtRegisteredClaimNames.Email, user.Email ?? ""),
 				new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
 			};
 
+			var roles = await _userManager.GetRolesAsync(user);
+			
+			foreach(var role in roles)
+			{
+				claims.Add(new Claim(ClaimTypes.Role, role));
+			}
+
 			if (string.IsNullOrEmpty(issuer))
 			{
-				throw new Exception("Can not generate a JWT Token: Issuer is missing from configuration.");
+				throw new ArgumentException("Can not generate a JWT Token: Issuer is missing from configuration.");
 			}
 			if (string.IsNullOrEmpty(audience))
 			{
-				throw new Exception("Can not generate a JWT Token: Audience is missing from configuration.");
+				throw new ArgumentException("Can not generate a JWT Token: Audience is missing from configuration.");
 			}
 
 			var token = new JwtSecurityToken(
