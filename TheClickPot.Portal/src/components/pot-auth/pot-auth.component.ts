@@ -61,5 +61,9 @@ export class PotAuthComponent {
   public getAuthStatus(): boolean {
     return this._authService.authSignal();
   }
+
+  public checkAdminRights(): void {
+    return this._authService.checkAdminRights();
+  }
   // END TEST //
 }
