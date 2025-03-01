@@ -10,8 +10,6 @@ using TheClickPot.WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
@@ -68,7 +66,11 @@ builder.Services.AddAuthentication(options =>
 	};
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorizationBuilder()
+	.AddPolicy(
+	"RequireAdmin", 
+	policy => policy.RequireRole("Admin")
+	);
 
 // Cors
 builder.Services.AddCors(options =>
@@ -76,7 +78,7 @@ builder.Services.AddCors(options =>
 	options.AddPolicy("AllowAngular",
 		builder => builder.WithOrigins(
 			"https://white-stone-0d26b6410.4.azurestaticapps.net",
-			"http://localhost:4200", 
+			"http://localhost:4200",
 			"https://localhost:7207"
 			)
 		.AllowCredentials()
@@ -118,6 +120,25 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
+
+#region TODO: This section can be safely removed after an administration system has been implemented
+
+// Create a service scope for program.cs (otherwise we can't inject services)
+var scope = app.Services.CreateScope();
+var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+string[] roleNames = { "Admin", "User", "Manager" };
+
+foreach (var roleName in roleNames)
+{
+	if (!await roleManager.RoleExistsAsync(roleName))
+	{
+		await roleManager.CreateAsync(new IdentityRole(roleName));
+	}
+}
+
+#endregion
+
 
 app.MapControllers();
 app.Run();

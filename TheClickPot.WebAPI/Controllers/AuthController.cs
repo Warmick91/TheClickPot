@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using TheClickPot.WebAPI.Interfaces;
 using TheClickPot.WebAPI.Models;
 using TheClickPot.WebAPI.Services;
@@ -43,7 +46,7 @@ namespace TheClickPot.WebAPI.Controllers
 
 			var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
-			var token = _tokenService.GenerateToken(user);
+			var token = await _tokenService.GenerateToken(user);
 
 			Response.Cookies.Append("jwt", token, new CookieOptions
 			{
@@ -76,12 +79,21 @@ namespace TheClickPot.WebAPI.Controllers
 		public IActionResult CheckAuth()
 		{
 			var user = HttpContext.User;
-			if(user.Identity?.IsAuthenticated == true)
+			if (user.Identity?.IsAuthenticated == true)
 			{
 				return Ok(new { message = "Authenticated" });
 			}
 			return Unauthorized();
 		}
+
+		// TEST
+		[Authorize(Policy = "RequireAdmin")]
+		[HttpGet("test-admin")]
+		public IActionResult CheckAdmin()
+		{
+			return Ok(new { message = "You are an admin" });
+		}
+		// END TEST
 	}
 
 	public class RegisterDto
