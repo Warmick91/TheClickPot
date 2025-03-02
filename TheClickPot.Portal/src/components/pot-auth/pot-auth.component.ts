@@ -69,5 +69,9 @@ export class PotAuthComponent {
   public checkAdminRights(): void {
     return this._adminService.checkAdminRights();
   }
+
+  checkCurrentRoles() {
+    return this._authService.getUserRoles();
+  }
   // END TEST //
 }
