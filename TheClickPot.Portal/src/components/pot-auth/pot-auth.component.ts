@@ -71,6 +71,7 @@ export class PotAuthComponent {
   }
 
   checkCurrentRoles() {
+    console.log('checkCurrentRoles called');
     return this._authService.getUserRoles();
   }
   // END TEST //

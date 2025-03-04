@@ -44,7 +44,7 @@ namespace TheClickPot.WebAPI.Controllers
 			if (!result.Succeeded) return BadRequest(result.Errors);
 
 			var role = !string.IsNullOrEmpty(model.Role) ? model.Role : "User";
-			if (!await _roleManager.RoleExistsAsync(role)) 
+			if (!await _roleManager.RoleExistsAsync(role))
 				return BadRequest("Invalid role specified.");
 
 			await _userManager.AddToRoleAsync(user, "User");
@@ -100,13 +100,23 @@ namespace TheClickPot.WebAPI.Controllers
 			return Unauthorized();
 		}
 
+		[HttpGet("user-roles")]
+		public IActionResult GetUserRoles()
+		{
+			var roles = HttpContext.User.Identity?.IsAuthenticated == true
+				? [..HttpContext.User.Claims
+					.Where(c => c.Type == ClaimTypes.Role)
+					.Select(c => c.Value)]
+				: new List<string> { AuthConstants.Roles.User };
+
+			return Ok(new { roles });
+		}
 	}
 
 	public class RegisterDto
 	{
 		public required string Email { get; set; }
 		public required string Password { get; set; }
-
 		public required string? Role { get; set; }
 	}
 

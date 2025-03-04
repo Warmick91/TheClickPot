@@ -63,8 +63,8 @@ export class PotHeaderComponent implements OnInit {
   }
 
   loadMenuItemsBasedOnRoles() {
-    this._authService.getUserRoles().subscribe(
-      rolesResult => {
+    this._authService.getUserRoles().subscribe({
+      next: rolesResult => {
         console.log('User roles: ', rolesResult.roles);
 
         if (rolesResult.roles.includes('Admin')) {
@@ -75,9 +75,12 @@ export class PotHeaderComponent implements OnInit {
           }
         }
       },
-      error => {
+      error: error => {
         console.error('Failed to load roles: ', error);
-      }
-    );
+      },
+      complete: () => {
+        console.log('Roles loaded successfully');
+      },
+    });
   }
 }
