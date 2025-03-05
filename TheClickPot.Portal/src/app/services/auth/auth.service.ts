@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { catchError, map, Observable, tap, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { StaticUrls } from '../urls/staticUrls';
 
 @Injectable({
@@ -17,11 +17,6 @@ export class AuthService {
 
   login(credentials: { email: string; password: string }): Observable<{ message: string }> {
     return this._http.post<{ message: string }>(`${StaticUrls.API_AUTH_ENDPOINT}/login`, credentials).pipe(
-      tap(response => {
-        if (response.message) {
-          this.authSignal.set(true);
-        }
-      }),
       catchError(error => {
         console.error('(ERROR) Login request failed: ', error);
         return throwError(() => error);
@@ -29,10 +24,13 @@ export class AuthService {
     );
   }
 
-  logout() {
-    this._http.post(`${StaticUrls.API_AUTH_ENDPOINT}/logout`, {}).subscribe(() => {
-      this.authSignal.set(false);
-    });
+  logout(): Observable<any> {
+    return this._http.post(`${StaticUrls.API_AUTH_ENDPOINT}/logout`, {}).pipe(
+      catchError(error => {
+        console.error('(ERROR) Logout request failed: ', error);
+        return throwError(() => error);
+      })
+    );
   }
 
   getUserRoles(): Observable<{ roles: string[] }> {

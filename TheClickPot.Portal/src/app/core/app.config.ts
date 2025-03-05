@@ -5,7 +5,6 @@ import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { provideStore } from '@ngrx/store';
 import { authInterceptor } from '../services/interceptors/auth-interceptor';
 import { routes } from './app.routes';
 
@@ -26,6 +25,5 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     provideHttpClient(withInterceptors([authInterceptor])),
-    provideStore(),
   ],
 };

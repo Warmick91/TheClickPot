@@ -40,7 +40,7 @@
   <p-button (click)="checkAuth()">Check Auth</p-button>
   <pre>Login status: <br />{{ getAuthStatus() }}</pre>
 
-  <p-button (click)="checkAdminRights()">Check Admin Rights</p-button>
-  <p-button (click)="checkCurrentRoles()">Check current Roles</p-button>
+  <p><p-button (click)="checkAdminRights()">Check Admin Rights</p-button></p>
+  <pre>Current user roles: <br />{{ _appStore.roles() }}</pre>
   <p>// END TEST //</p>
 </div>
