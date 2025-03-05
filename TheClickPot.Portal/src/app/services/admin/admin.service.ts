@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { StaticUrls } from '../../urls/staticUrls';
+import { StaticUrls } from '../urls/staticUrls';
 
 @Injectable({
   providedIn: 'root',

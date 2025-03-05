@@ -1,4 +1,4 @@
-import { environment } from '../environments/environment.development';
+import { environment } from '../../environments/environment.development';
 
 export class StaticUrls {
   public static API_BASE_ENDPOINT = environment.API_BASE_ENDPOINT;

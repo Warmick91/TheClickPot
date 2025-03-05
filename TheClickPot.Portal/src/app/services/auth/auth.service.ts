@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
-import { StaticUrls } from '../../urls/staticUrls';
+import { StaticUrls } from '../urls/staticUrls';
 
 @Injectable({
   providedIn: 'root',
