@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-pot-auth',
   imports: [Card, FormsModule, IftaLabelModule, JsonPipe, Button],
-  providers: [AppStore],
+  // providers: [AppStore],
   templateUrl: './pot-auth.component.html',
   styleUrl: './pot-auth.component.scss',
 })
