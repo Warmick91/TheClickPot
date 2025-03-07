@@ -43,11 +43,11 @@ namespace TheClickPot.WebAPI.Controllers
 			var result = await _userManager.CreateAsync(user, model.Password);
 			if (!result.Succeeded) return BadRequest(result.Errors);
 
-			var role = !string.IsNullOrEmpty(model.Role) ? model.Role : "User";
+			var role = !string.IsNullOrEmpty(model.Role) ? model.Role : AuthConstants.Roles.User;
 			if (!await _roleManager.RoleExistsAsync(role))
 				return BadRequest("Invalid role specified.");
 
-			await _userManager.AddToRoleAsync(user, "User");
+			await _userManager.AddToRoleAsync(user, role);
 
 			return Ok(new { message = "User created successfully" });
 		}
