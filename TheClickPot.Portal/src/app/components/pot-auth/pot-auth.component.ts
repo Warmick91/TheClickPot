@@ -33,7 +33,7 @@ export class PotAuthComponent {
       .subscribe({
         next: () => {
           console.log('(SUCCESS) User logged in successfully and roles fetched!');
-          this._authService.authSignal.set(false);
+          this._authService.authSignal.set(true);
           this.errorMessage = '';
         },
         error: (err: HttpErrorResponse) => {
