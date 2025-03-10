@@ -1,15 +1,19 @@
 import { JsonPipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { Card } from 'primeng/card';
 import { IftaLabelModule } from 'primeng/iftalabel';
+import { from, switchMap } from 'rxjs';
+import { AppStore } from '../../core/app.store';
+import { AdminService } from '../../services/admin/admin.service';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-pot-auth',
   imports: [Card, FormsModule, IftaLabelModule, JsonPipe, Button],
+  // providers: [AppStore],
   templateUrl: './pot-auth.component.html',
   styleUrl: './pot-auth.component.scss',
 })
@@ -18,23 +22,39 @@ export class PotAuthComponent {
   password = '';
   errorMessage = '';
 
-  constructor(private readonly _authService: AuthService) {}
+  private readonly _authService = inject(AuthService);
+  private readonly _adminService = inject(AdminService);
+  public readonly _appStore = inject(AppStore);
 
   login() {
-    this._authService.login({ email: this.email, password: this.password }).subscribe({
-      next: () => {
-        console.log('(SUCCESS) User logged in successfully!');
-        this.errorMessage = '';
-      },
-      error: (err: HttpErrorResponse) => {
-        console.log('(ERROR) User login failed: ', err);
-        this.errorMessage = this.getErrorMessage(err);
-      },
-    });
+    this._authService
+      .login({ email: this.email, password: this.password })
+      .pipe(switchMap(() => from(this._appStore.setUserRoles())))
+      .subscribe({
+        next: () => {
+          console.log('(SUCCESS) User logged in successfully and roles fetched!');
+          this._authService.authSignal.set(true);
+          this.errorMessage = '';
+        },
+        error: (err: HttpErrorResponse) => {
+          console.log('(ERROR) User login failed: ', err);
+          this.errorMessage = this.getErrorMessage(err);
+        },
+      });
   }
 
   logout() {
-    this._authService.logout();
+    this._authService
+      .logout()
+      .pipe(switchMap(() => from(this._appStore.setUserRoles())))
+      .subscribe({
+        next: () => {
+          this._authService.authSignal.set(false);
+        },
+        error: err => {
+          console.error('Logout error: ', err);
+        },
+      });
   }
 
   cancel(loginForm: NgForm) {
@@ -63,7 +83,7 @@ export class PotAuthComponent {
   }
 
   public checkAdminRights(): void {
-    return this._authService.checkAdminRights();
+    return this._adminService.checkAdminRights();
   }
   // END TEST //
 }
