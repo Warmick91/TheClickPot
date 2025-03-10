@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,12 +18,14 @@ namespace TheClickPot.WebAPI.Controllers
 	public class AuthController : ControllerBase
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly RoleManager<IdentityRole> _roleManager;
 		private readonly SignInManager<ApplicationUser> _signInManager;
 		private readonly ITokenService _tokenService;
 
-		public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ITokenService tokenService)
+		public AuthController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, ITokenService tokenService)
 		{
 			_userManager = userManager;
+			_roleManager = roleManager;
 			_signInManager = signInManager;
 			_tokenService = tokenService;
 		}
@@ -30,10 +33,21 @@ namespace TheClickPot.WebAPI.Controllers
 		[HttpPost("register")]
 		public async Task<IActionResult> Register([FromBody] RegisterDto model)
 		{
-			var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-			var result = await _userManager.CreateAsync(user, model.Password);
+			if (await _userManager.FindByEmailAsync(model.Email) != null)
+			{
+				return BadRequest("Email is already taken.");
+			}
 
+			var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+			var result = await _userManager.CreateAsync(user, model.Password);
 			if (!result.Succeeded) return BadRequest(result.Errors);
+
+			var role = !string.IsNullOrEmpty(model.Role) ? model.Role : AuthConstants.Roles.User;
+			if (!await _roleManager.RoleExistsAsync(role))
+				return BadRequest("Invalid role specified.");
+
+			await _userManager.AddToRoleAsync(user, role);
 
 			return Ok(new { message = "User created successfully" });
 		}
@@ -86,20 +100,24 @@ namespace TheClickPot.WebAPI.Controllers
 			return Unauthorized();
 		}
 
-		// TEST
-		[Authorize(Policy = "RequireAdmin")]
-		[HttpGet("test-admin")]
-		public IActionResult CheckAdmin()
+		[HttpGet("user-roles")]
+		public IActionResult GetUserRoles()
 		{
-			return Ok(new { message = "You are an admin" });
+			var roles = HttpContext.User.Identity?.IsAuthenticated == true
+				? [..HttpContext.User.Claims
+					.Where(c => c.Type == ClaimTypes.Role)
+					.Select(c => c.Value)]
+				: new List<string> { AuthConstants.Roles.User };
+
+			return Ok(new { roles });
 		}
-		// END TEST
 	}
 
 	public class RegisterDto
 	{
 		public required string Email { get; set; }
 		public required string Password { get; set; }
+		public required string? Role { get; set; }
 	}
 
 	public class LoginDto

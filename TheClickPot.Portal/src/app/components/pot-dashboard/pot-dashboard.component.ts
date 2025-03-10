@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-pot-dashboard',
   imports: [],
   templateUrl: './pot-dashboard.component.html',
-  styleUrl: './pot-dashboard.component.scss'
+  styleUrl: './pot-dashboard.component.scss',
 })
-export class PotDashboardComponent {
-
-}
+export class PotDashboardComponent {}
