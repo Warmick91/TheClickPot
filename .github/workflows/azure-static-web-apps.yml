@@ -36,14 +36,14 @@ jobs:
         
           # Build the Angular app
       - name: Ensure environments folder exists
-        run: mkdir -p src/environments
-        
+        run: mkdir -p TheClickPot.Portal/src/environments
+
       - name: Create environment.production.ts from secret
         run: |
-          echo "export const environment = " > src/environments/environment.production.ts
-          echo '${{ secrets.ENV_PRODUCTION_JSON }}' >> src/environments/environment.production.ts
-          echo ";" >> src/environments/environment.production.ts
-          
+          echo "export const environment = " > TheClickPot.Portal/src/environments/environment.production.ts
+          echo '${{ secrets.ENV_PRODUCTION_JSON }}' >> TheClickPot.Portal/src/environments/environment.production.ts
+          echo ";" >> TheClickPot.Portal/src/environments/environment.production.ts
+                
       - name: Build Angular app
         run: npm run build -- --configuration=production
         working-directory: TheClickPot.Portal
