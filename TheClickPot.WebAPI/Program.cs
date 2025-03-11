@@ -68,13 +68,14 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorizationBuilder()
 	.AddPolicy(
-	"RequireAdmin", 
-	policy => policy.RequireRole("Admin")
+	"RequireAdmin",
+	policy => policy.RequireRole(AuthConstants.Roles.Admin)
 	);
 
 // Cors
 builder.Services.AddCors(options =>
 {
+	//TODO: Check how to secure WithOrigins() for Production
 	options.AddPolicy("AllowAngular",
 		builder => builder.WithOrigins(
 			"https://white-stone-0d26b6410.4.azurestaticapps.net",
@@ -127,7 +128,7 @@ app.MapGet("/weatherforecast", () =>
 var scope = app.Services.CreateScope();
 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-string[] roleNames = { "Admin", "User", "Manager" };
+string[] roleNames = { AuthConstants.Roles.Admin, AuthConstants.Roles.Admin, AuthConstants.Roles.Manager };
 
 foreach (var roleName in roleNames)
 {
