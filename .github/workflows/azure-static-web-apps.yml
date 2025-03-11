@@ -35,15 +35,15 @@ jobs:
           TheClickPot.Portal
 
           # Build the Angular app
-      - name: Build Angular app
-        run: npm run build -- --configuration=production
-        working-directory: TheClickPot.Portal
-
       - name: Create environment.production.ts from secret
         run: |
           echo "export const environment = " > src/environments/environment.production.ts
           echo '${{ secrets.ENV_PRODUCTION_JSON }}' >> src/environments/environment.production.ts
           echo ";" >> src/environments/environment.production.ts
+          
+      - name: Build Angular app
+        run: npm run build -- --configuration=production
+        working-directory: TheClickPot.Portal
 
       - name: Build And Deploy
         id: builddeploy
