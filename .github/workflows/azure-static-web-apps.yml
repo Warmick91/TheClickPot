@@ -41,7 +41,7 @@ jobs:
       - name: Create environment.production.ts from secret
         run: |
           echo "export const environment = " > TheClickPot.Portal/src/environments/environment.production.ts
-          echo '${{ secrets.ENV_PRODUCTION_JSON }}' >> TheClickPot.Portal/src/environments/environment.production.ts
+          echo '${{ secrets.ENV_PRODUCTION_JSON }}' | jq -r . >> TheClickPot.Portal/src/environments/environment.production.ts
           echo ";" >> TheClickPot.Portal/src/environments/environment.production.ts
                 
       - name: Build Angular app
