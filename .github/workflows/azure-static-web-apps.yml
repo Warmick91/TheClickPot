@@ -33,8 +33,11 @@ jobs:
         run: npm install
         working-directory:
           TheClickPot.Portal
-
+        
           # Build the Angular app
+      - name: Ensure environments folder exists
+        run: mkdir -p src/environments
+        
       - name: Create environment.production.ts from secret
         run: |
           echo "export const environment = " > src/environments/environment.production.ts
