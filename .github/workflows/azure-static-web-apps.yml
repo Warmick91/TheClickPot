@@ -39,6 +39,12 @@ jobs:
         run: npm run build -- --configuration=production
         working-directory: TheClickPot.Portal
 
+      - name: Create environment.production.ts from secret
+        run: |
+          echo "export const environment = " > src/environments/environment.production.ts
+          echo '${{ secrets.ENV_PRODUCTION_JSON }}' >> src/environments/environment.production.ts
+          echo ";" >> src/environments/environment.production.ts
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
