@@ -134,7 +134,8 @@ TheClickPot.Portal/.husky/_
 
 # Environment files (DO NOT COMMIT!)
 TheClickPot.Portal/.env
-TheClickPot.Portal/src/environments/environment*.ts
+TheClickPot.Portal/src/environments/environment.production.ts
+TheClickPot.Portal/src/environments/environment.development.ts
 
 # Cache, temporary, and editor files
 .DS_Store
