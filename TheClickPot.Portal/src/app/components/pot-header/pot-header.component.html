@@ -1,13 +1,14 @@
 <div #titleAndLogo class="titleAndLogo"><h1>The Click Pot</h1></div>
 <p-menubar [model]="appStore.authorizedMenuItems()">
-  <!-- Mini Logo-->
+  <!-- #region Mini Logo-->
   <ng-template #start>
     <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="..." fill="var(--primary-color)" />
     </svg>
   </ng-template>
+  <!-- #endregion -->
 
-  <!-- Main Menu Items -->
+  <!-- #region Main Menu Items -->
   <ng-template #item let-item let-root="root">
     <ng-container *ngIf="item.routerLink">
       <a [routerLink]="item.routerLink" class="p-menubar-item-link">
@@ -16,12 +17,23 @@
       </a>
     </ng-container>
   </ng-template>
+  <!-- #endregion -->
 
-  <!-- Login/Logout and User Profile -->
+  <!-- #region Login/Logout and User Profile -->
   <ng-template #end>
-    <div class="flex items-center gap-2">
-      <input type="text" pInputText placeholder="Search" class="w-36" />
-      <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+    <div class="flex items-center gap-4">
+      @if (!isAuthenticated()) {
+        <a [routerLink]="loginMenuItem.routerLink" class="p-menubar-item-link flex items-center gap-2">
+          <span [class]="loginMenuItem.icon"></span>
+          <span class="ml-2">{{ loginMenuItem.label }}</span>
+        </a>
+      } @else {
+        <a [routerLink]="logoutMenuItem.routerLink" class="p-menubar-item-link flex items-center gap-2">
+          <span [class]="logoutMenuItem.icon"></span>
+          <span class="ml-2">{{ logoutMenuItem.label }}</span>
+        </a>
+      }
     </div>
   </ng-template>
+  <!-- #endregion -->
 </p-menubar>
