@@ -1,12 +1,30 @@
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  width: 100vw;
+}
+
 .login-card-logo {
   display: block;
   margin-left: auto;
   margin-right: auto;
   margin-top: 5%;
-  margin-bottom: 5%;
   width: auto;
   max-width: 100%;
   height: auto;
+}
+
+.login-card {
+  width: 80%;
+  max-width: 25rem;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  box-shadow: 10px 5px 5px #9933ff;
+  text-align: center;
 }
 
 .input-group {
