@@ -1,0 +1,9 @@
+🟨 Yellow – #FFD700 (or similar vibrant yellow)
+
+🟧 Orange – #FF8C00 (strong orange)
+
+🟥 Hot Pink / Reddish Pink – #FF3366
+
+🟪 Bright Magenta / Pink – #FF33FF
+
+🟦 Violet / Purple – #9933FF
