@@ -1,0 +1,49 @@
+.main-container {
+  background-color: greenyellow;
+  display: flex;
+  padding: 8vh 2vh;
+  height: 70vh;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.left-box {
+  background-color: green;
+  flex: 1;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-right: 20px;
+
+  .icon-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    .icon {
+      margin-right: 10px;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.right-box {
+  background-color: red;
+  flex: 2;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}

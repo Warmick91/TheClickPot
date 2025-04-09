@@ -1,1 +1,38 @@
-<p>pot-contact works!</p>
+<div class="main-container">
+  <div class="left-box">
+    <h2>Get in touch with me!</h2>
+    <h3>Feel free to use the form or drop me an email.</h3>
+
+    <div class="icon-row">
+      <i class="pi pi-envelope icon"></i>
+      <span>exampleMail&#64;something.com</span>
+    </div>
+  </div>
+
+  <div class="right-box">
+    <form #messageForm="ngForm" name="messageForm" (ngSubmit)="sendMessage()">
+      <div class="input-group">
+        <p-iftalabel>
+          <input class="form-control" id="email" name="email" pInputText [(ngModel)]="email" required />
+          <label for="email">Email</label>
+        </p-iftalabel>
+        <p-iftalabel variant="over">
+          <textarea class="form-control" id="message" name="message" pInputText [(ngModel)]="message" required></textarea>
+          <label for="message">Message</label>
+        </p-iftalabel>
+      </div>
+
+      <!-- Display Error Message -->
+      @if (errorMessage) {
+        <div class="error-message">
+          {{ errorMessage }}
+        </div>
+      }
+
+      <div style="display: flex; justify-content: space-between; margin-top: 4px">
+        <p-button label="Cancel" type="button" severity="secondary" [outlined]="true" (click)="cancel(messageForm)" />
+        <p-button label="Send message" type="submit" />
+      </div>
+    </form>
+  </div>
+</div>
