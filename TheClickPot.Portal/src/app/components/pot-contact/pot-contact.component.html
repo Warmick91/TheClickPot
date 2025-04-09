@@ -1,15 +1,23 @@
-<div class="main-container">
-  <div class="left-box">
-    <h2>Get in touch with me!</h2>
-    <h3>Feel free to use the form or drop me an email.</h3>
+<div class="content-wrapper">
+  <p-card class="card left-card">
+    <ng-template #header>
+      <img alt="Card" class="login-card-logo" src="images/pot_test_logo.png" />
+    </ng-template>
+
+    <ng-template #title> <h2>Get in touch with me!</h2> </ng-template>
+    <ng-template #subtitle> <h3>Feel free to use the form or drop me an email.</h3> </ng-template>
 
     <div class="icon-row">
       <i class="pi pi-envelope icon"></i>
       <span>exampleMail&#64;something.com</span>
     </div>
-  </div>
+  </p-card>
 
-  <div class="right-box">
+  <p-card class="card right-card">
+    <ng-template #header> </ng-template>
+
+    <ng-template #title> <h2>Message Form</h2> </ng-template>
+
     <form #messageForm="ngForm" name="messageForm" (ngSubmit)="sendMessage()">
       <div class="input-group">
         <div class="names-row">
@@ -50,5 +58,5 @@
         <p-button label="Send message" type="submit" />
       </div>
     </form>
-  </div>
+  </p-card>
 </div>

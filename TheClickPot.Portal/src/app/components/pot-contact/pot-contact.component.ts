@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Button } from 'primeng/button';
+import { Card } from 'primeng/card';
 import { IftaLabelModule } from 'primeng/iftalabel';
 
 @Component({
   selector: 'app-pot-contact',
-  imports: [FormsModule, Button, IftaLabelModule],
+  imports: [Card, FormsModule, Button, IftaLabelModule],
   templateUrl: './pot-contact.component.html',
   styleUrl: './pot-contact.component.scss',
 })

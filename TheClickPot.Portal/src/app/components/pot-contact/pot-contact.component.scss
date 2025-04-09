@@ -1,4 +1,4 @@
-.main-container {
+.content-wrapper {
   display: flex;
   padding: 8vh 2vh;
   height: 70vh;
@@ -9,20 +9,18 @@ h2 {
   margin-bottom: 1rem;
 }
 
-.left-box {
-  flex: 1;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  margin-right: 20px;
+.card {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  box-shadow: 10px 5px 5px #9933ff;
+  text-align: center;
 
   .icon-row {
     display: flex;
     align-items: center;
-    margin-bottom: 0.5rem;
+    justify-content: center;
 
     .icon {
       margin-right: 10px;
@@ -33,24 +31,18 @@ h2 {
       margin-bottom: 1rem;
     }
   }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 10%;
-    right: 0;
-    width: 10px;
-    height: 80%;
-    background-color: #ff0000;
-  }
 }
 
-.right-box {
+.left-card {
+  flex: 1;
+  margin-right: 2rem;
+}
+
+.right-card {
   flex: 2;
-  height: fit-content;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 20px;
 
