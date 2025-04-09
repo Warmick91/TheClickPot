@@ -10,6 +10,8 @@ import { IftaLabelModule } from 'primeng/iftalabel';
   styleUrl: './pot-contact.component.scss',
 })
 export class PotContactComponent {
+  firstName = '';
+  lastName = '';
   email = '';
   message = '';
   errorMessage = '';

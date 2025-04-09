@@ -12,14 +12,30 @@
   <div class="right-box">
     <form #messageForm="ngForm" name="messageForm" (ngSubmit)="sendMessage()">
       <div class="input-group">
-        <p-iftalabel>
-          <input class="form-control" id="email" name="email" pInputText [(ngModel)]="email" required />
-          <label for="email">Email</label>
-        </p-iftalabel>
-        <p-iftalabel variant="over">
-          <textarea class="form-control" id="message" name="message" pInputText [(ngModel)]="message" required></textarea>
-          <label for="message">Message</label>
-        </p-iftalabel>
+        <div class="names-row">
+          <p-iftalabel>
+            <input class="form-control" id="firstName" name="firstName" pInputText [(ngModel)]="firstName" required />
+            <label for="firstName">First name</label>
+          </p-iftalabel>
+          <p-iftalabel>
+            <input class="form-control" id="lastName" name="lastName" pInputText [(ngModel)]="lastName" required />
+            <label for="lastName">Last name</label>
+          </p-iftalabel>
+        </div>
+
+        <div class="email-row">
+          <p-iftalabel class="single-field">
+            <input class="form-control single-field" id="email" name="email" pInputText [(ngModel)]="email" required />
+            <label for="email">Email</label>
+          </p-iftalabel>
+        </div>
+
+        <div class="message-row">
+          <p-iftalabel class="single-field">
+            <textarea class="form-control" id="message" name="message" pInputText [(ngModel)]="message" required></textarea>
+            <label for="message">Message</label>
+          </p-iftalabel>
+        </div>
       </div>
 
       <!-- Display Error Message -->

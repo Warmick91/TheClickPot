@@ -1,5 +1,4 @@
 .main-container {
-  background-color: greenyellow;
   display: flex;
   padding: 8vh 2vh;
   height: 70vh;
@@ -11,7 +10,6 @@ h2 {
 }
 
 .left-box {
-  background-color: green;
   flex: 1;
   height: fit-content;
   display: flex;
@@ -35,10 +33,19 @@ h2 {
       margin-bottom: 1rem;
     }
   }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 0;
+    width: 10px;
+    height: 80%;
+    background-color: #ff0000;
+  }
 }
 
 .right-box {
-  background-color: red;
   flex: 2;
   height: fit-content;
   display: flex;
@@ -46,4 +53,44 @@ h2 {
   justify-content: center;
   align-items: center;
   padding: 20px;
+
+  .names-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .email-row {
+    display: flex;
+    margin-bottom: 1rem;
+
+    .single-field {
+      flex: 1;
+    }
+
+    input {
+      width: 100%;
+      max-width: 600px;
+    }
+  }
+
+  .message-row {
+    display: flex;
+    margin-bottom: 1rem;
+
+    .single-field {
+      flex: 1;
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 600px;
+    }
+  }
+
+  .input-group {
+    width: 100%;
+    max-width: 600px;
+  }
 }
