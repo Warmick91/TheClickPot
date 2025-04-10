@@ -62,11 +62,11 @@ h2 {
 
 .names-row {
   display: flex;
-  gap: 1rem;
+  gap: 1rem; /* Add gap between the fields */
 }
 
-.names-row label {
-  flex: 1;
+.names-row p-floatLabel {
+  flex: 1; /* Make the fields spread the whole width */
 }
 
 .email-row {
@@ -98,13 +98,6 @@ textarea {
   background-color: #fff;
   color: #333;
   box-shadow: inset 0 0 5px rgba(255, 51, 255, 0.1); /* Subtle inner Bright Magenta shadow */
-}
-
-textarea {
-  resize: none; /* Prevent manual resizing */
-  min-height: 150px; /* Reasonable default size */
-  height: auto; /* Adjust height automatically */
-  overflow-y: auto; /* Add scroll if content overflows */
 }
 
 input:focus,

@@ -18,42 +18,29 @@
     <form #messageForm="ngForm" name="messageForm" (ngSubmit)="sendMessage()" aria-label="Contact Form">
       <div class="input-group">
         <div class="names-row">
-          <label for="firstName" class="form-label">
-            First name
-            <input
-              class="form-control"
-              id="firstName"
-              name="firstName"
-              pInputText
-              [(ngModel)]="firstName"
-              required
-              placeholder="Enter your first name" />
-          </label>
-          <label for="lastName" class="form-label">
-            Last name
-            <input class="form-control" id="lastName" name="lastName" pInputText [(ngModel)]="lastName" required placeholder="Enter your last name" />
-          </label>
+          <p-floatLabel>
+            <input id="firstName" name="firstName" type="text" pInputText [(ngModel)]="firstName" required />
+            <label for="firstName">First Name</label>
+          </p-floatLabel>
+
+          <p-floatLabel>
+            <input id="lastName" name="lastName" type="text" pInputText [(ngModel)]="lastName" required />
+            <label for="lastName">Last Name</label>
+          </p-floatLabel>
         </div>
 
         <div class="email-row">
-          <label for="email" class="form-label">
-            Email
-            <input class="form-control" id="email" name="email" pInputText [(ngModel)]="email" required placeholder="Enter your email" />
-          </label>
+          <p-floatLabel>
+            <input id="email" name="email" type="text" pInputText [(ngModel)]="email" required />
+            <label for="email">Email</label>
+          </p-floatLabel>
         </div>
 
         <div class="message-row">
-          <label for="message" class="form-label">
-            Message
-            <textarea
-              class="form-control"
-              id="message"
-              name="message"
-              pInputText
-              [(ngModel)]="message"
-              required
-              placeholder="Write your message"></textarea>
-          </label>
+          <p-floatLabel>
+            <textarea id="message" name="message" pInputTextarea [(ngModel)]="message" required></textarea>
+            <label for="message">Message</label>
+          </p-floatLabel>
         </div>
       </div>
 
