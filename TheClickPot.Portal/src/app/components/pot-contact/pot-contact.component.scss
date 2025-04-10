@@ -17,7 +17,7 @@ h2 {
 .card {
   overflow: hidden;
   border: 1px solid #ddd;
-  border-radius: 0 0 15px 15px;
+  border-radius: 0 0 30px 30px; /* Only bottom corners rounded with 30px radius */
   box-shadow: 0 4px 10px #9933ff4a; /* Delicate Bright Magenta shadow */
   text-align: center;
   background-color: #fff;

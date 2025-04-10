@@ -1,8 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { Card } from 'primeng/card';
+import { FloatLabelModule } from 'primeng/floatlabel';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { from, switchMap } from 'rxjs';
 import { AppStore } from '../../core/app.store';
@@ -11,7 +13,7 @@ import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-pot-auth',
-  imports: [Card, FormsModule, IftaLabelModule, Button],
+  imports: [Card, FormsModule, IftaLabelModule, Button, FloatLabelModule, CommonModule],
   // providers: [AppStore],
   templateUrl: './pot-auth.component.html',
   styleUrl: './pot-auth.component.scss',
