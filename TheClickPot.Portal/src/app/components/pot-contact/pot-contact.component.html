@@ -1,62 +1,70 @@
 <div class="content-wrapper">
-  <p-card class="card left-card">
-    <ng-template #header>
-      <img alt="Card" class="login-card-logo" src="images/pot_test_logo.png" />
-    </ng-template>
-
-    <ng-template #title> <h2>Get in touch with me!</h2> </ng-template>
-    <ng-template #subtitle> <h3>Feel free to use the form or drop me an email.</h3> </ng-template>
-
+  <section class="card left-card">
+    <header>
+      <img alt="Pot Logo" class="login-card-logo" src="images/pot_test_logo.png" />
+    </header>
+    <h2>Get in touch with me!</h2>
+    <h3>Feel free to use the form or drop me an email.</h3>
     <div class="icon-row">
-      <i class="pi pi-envelope icon"></i>
-      <span>exampleMail&#64;something.com</span>
+      <i class="pi pi-envelope icon" aria-hidden="true"></i>
+      <span aria-label="Email">exampleMail<span>&#64;</span>something.com</span>
     </div>
-  </p-card>
+  </section>
 
-  <p-card class="card right-card">
-    <ng-template #header> </ng-template>
-
-    <ng-template #title> <h2>Message Form</h2> </ng-template>
-
-    <form #messageForm="ngForm" name="messageForm" (ngSubmit)="sendMessage()">
+  <section class="card right-card">
+    <header>
+      <h2>Message Form</h2>
+    </header>
+    <form #messageForm="ngForm" name="messageForm" (ngSubmit)="sendMessage()" aria-label="Contact Form">
       <div class="input-group">
         <div class="names-row">
-          <p-iftalabel>
-            <input class="form-control" id="firstName" name="firstName" pInputText [(ngModel)]="firstName" required />
-            <label for="firstName">First name</label>
-          </p-iftalabel>
-          <p-iftalabel>
-            <input class="form-control" id="lastName" name="lastName" pInputText [(ngModel)]="lastName" required />
-            <label for="lastName">Last name</label>
-          </p-iftalabel>
+          <label for="firstName" class="form-label">
+            First name
+            <input
+              class="form-control"
+              id="firstName"
+              name="firstName"
+              pInputText
+              [(ngModel)]="firstName"
+              required
+              placeholder="Enter your first name" />
+          </label>
+          <label for="lastName" class="form-label">
+            Last name
+            <input class="form-control" id="lastName" name="lastName" pInputText [(ngModel)]="lastName" required placeholder="Enter your last name" />
+          </label>
         </div>
 
         <div class="email-row">
-          <p-iftalabel class="single-field">
-            <input class="form-control single-field" id="email" name="email" pInputText [(ngModel)]="email" required />
-            <label for="email">Email</label>
-          </p-iftalabel>
+          <label for="email" class="form-label">
+            Email
+            <input class="form-control" id="email" name="email" pInputText [(ngModel)]="email" required placeholder="Enter your email" />
+          </label>
         </div>
 
         <div class="message-row">
-          <p-iftalabel class="single-field">
-            <textarea class="form-control" id="message" name="message" pInputText [(ngModel)]="message" required></textarea>
-            <label for="message">Message</label>
-          </p-iftalabel>
+          <label for="message" class="form-label">
+            Message
+            <textarea
+              class="form-control"
+              id="message"
+              name="message"
+              pInputText
+              [(ngModel)]="message"
+              required
+              placeholder="Write your message"></textarea>
+          </label>
         </div>
       </div>
 
-      <!-- Display Error Message -->
-      @if (errorMessage) {
-        <div class="error-message">
-          {{ errorMessage }}
-        </div>
-      }
+      <div *ngIf="errorMessage" class="error-message" role="alert">
+        {{ errorMessage }}
+      </div>
 
-      <div style="display: flex; justify-content: space-between; margin-top: 4px">
-        <p-button label="Cancel" type="button" severity="secondary" [outlined]="true" (click)="cancel(messageForm)" />
-        <p-button label="Send message" type="submit" />
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="cancel(messageForm)">Cancel</button>
+        <button type="submit" class="btn btn-primary">Send Message</button>
       </div>
     </form>
-  </p-card>
+  </section>
 </div>
