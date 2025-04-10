@@ -1,45 +1,33 @@
 <div class="content-wrapper">
-  @if (!isAuthenticated()) {
-    <p-card class="login-card">
-      <ng-template #header>
-        <img alt="Card" class="login-card-logo" src="images/pot_test_logo.png" />
-      </ng-template>
-      <ng-template #title> Login </ng-template>
-      <ng-template #subtitle> Don't have an account? Create today! </ng-template>
-      <form #loginForm="ngForm" name="loginForm" (ngSubmit)="login()">
-        <div class="input-group">
-          <p-iftalabel>
-            <input class="form-control" id="email" name="email" pInputText [(ngModel)]="email" required />
-            <label for="email">Email</label>
-          </p-iftalabel>
-          <p-iftalabel variant="over">
-            <input class="form-control" id="password" name="password" pInputText [(ngModel)]="password" required />
-            <label for="password">Password</label>
-          </p-iftalabel>
-        </div>
+  <section class="card">
+    <header>
+      <img alt="Pot Logo" class="login-card-logo" src="images/pot_test_logo.png" />
+    </header>
+    <h2>Login</h2>
+    <h3>Don't have an account? Create one today!</h3>
+    <form #loginForm="ngForm" name="loginForm" (ngSubmit)="login()" aria-label="Login Form">
+      <div class="input-group">
+        <p-floatLabel>
+          <input id="email" name="email" type="text" pInputText [(ngModel)]="email" required />
+          <label for="email">Email</label>
+        </p-floatLabel>
 
-        <!-- Display Error Message -->
-        @if (errorMessage) {
-          <div class="error-message">
-            {{ errorMessage }}
-          </div>
-        }
+        <p-floatLabel>
+          <input id="password" name="password" type="password" pInputText [(ngModel)]="password" required />
+          <label for="password">Password</label>
+        </p-floatLabel>
+      </div>
 
-        <div style="display: flex; justify-content: space-between; margin-top: 4px">
-          <p-button label="Cancel" type="button" severity="secondary" [outlined]="true" (click)="cancel(loginForm)" />
-          <p-button label="Login" type="submit" />
-        </div>
-      </form>
-    </p-card>
-  } @else {
-    <div class="content-wrapper">
-      <p-card class="login-card">
-        <ng-template #header> <img alt="Card" class="login-card-logo" src="images/pot_test_logo.png" /> </ng-template
-        ><ng-template #title> Logout </ng-template><ng-template #subtitle> Do you want to log out? </ng-template
-        ><p-button (click)="logout()">Logout</p-button></p-card
-      >
-    </div>
-  }
+      <div *ngIf="errorMessage" class="error-message" role="alert">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="cancel(loginForm)">Cancel</button>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
+    </form>
+  </section>
 </div>
 
 <!-- #region TESTING -->
