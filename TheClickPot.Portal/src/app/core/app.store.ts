@@ -24,8 +24,14 @@ const initialState: AppState = {
     { label: 'Home', icon: PrimeIcons.HOME, routerLink: ['/home'] },
     { label: 'About', icon: PrimeIcons.INFO_CIRCLE, routerLink: ['/about'] },
     { label: 'Contact', icon: PrimeIcons.ADDRESS_BOOK, routerLink: ['/contact'] },
-    { label: 'Login', icon: PrimeIcons.USER, routerLink: ['/auth'] },
+    // { label: 'Login', icon: PrimeIcons.USER, routerLink: ['/auth'] },
   ],
+};
+
+const dashboardMenuItem: MenuItem = {
+  label: 'Admin Dashboard',
+  icon: PrimeIcons.DATABASE,
+  routerLink: ['/dashboard'],
 };
 
 export const AppStore = signalStore(
@@ -40,12 +46,6 @@ export const AppStore = signalStore(
   withComputed(state => ({
     authorizedMenuItems: computed(() => {
       const roles = state.roles();
-
-      const dashboardMenuItem: MenuItem = {
-        label: 'Admin Dashboard',
-        icon: PrimeIcons.DATABASE,
-        routerLink: ['/dashboard'],
-      };
 
       const computedItems: MenuItem[] = roles.includes('Admin') ? [...state.menuItems(), dashboardMenuItem] : state.menuItems();
 

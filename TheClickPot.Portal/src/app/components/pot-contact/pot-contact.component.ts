@@ -1,9 +1,31 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Button } from 'primeng/button';
+import { Card } from 'primeng/card';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { IftaLabelModule } from 'primeng/iftalabel';
 
 @Component({
   selector: 'app-pot-contact',
-  imports: [],
+  imports: [Card, FormsModule, Button, IftaLabelModule, CommonModule, FloatLabelModule],
   templateUrl: './pot-contact.component.html',
   styleUrl: './pot-contact.component.scss',
 })
-export class PotContactComponent {}
+export class PotContactComponent {
+  firstName = '';
+  lastName = '';
+  email = '';
+  message = '';
+  errorMessage = '';
+
+  public sendMessage() {
+    console.log('Sending message to mail...');
+  }
+
+  public cancel(messageForm: NgForm) {
+    console.log('Cancelling message...');
+    messageForm.reset();
+    this.errorMessage = '';
+  }
+}
