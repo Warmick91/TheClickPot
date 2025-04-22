@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -9,6 +10,18 @@ using TheClickPot.WebAPI.Models;
 using TheClickPot.WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var openTelemetryBuilder = builder.Services.AddOpenTelemetry();
+var connectionString = builder.Configuration["AzureMonitor:ConnectionString"];
+
+openTelemetryBuilder.UseAzureMonitor(options =>
+{
+	if (builder.Environment.IsDevelopment() && !string.IsNullOrWhiteSpace(connectionString))
+	{
+		options.ConnectionString = connectionString;
+	}
+	// If no connection string is set, OpenTelemetry will use the default Azure Monitor settings.
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
