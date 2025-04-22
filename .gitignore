@@ -156,4 +156,4 @@ Desktop.ini
 *.log
 certs/
 
-appsettings.Development.json
+./appsettings.Development.json
