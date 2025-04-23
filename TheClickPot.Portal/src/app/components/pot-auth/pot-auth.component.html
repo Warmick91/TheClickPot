@@ -3,6 +3,7 @@
     <header>
       <img alt="Pot Logo" class="login-card-logo" src="images/pot_test_logo.png" />
     </header>
+    <ng-container *ngIf="!isAuthenticated(); else logoutPanel">
     <h2>Login</h2>
     <h3>Don't have an account? Create one today!</h3>
     <form #loginForm="ngForm" name="loginForm" (ngSubmit)="login()" aria-label="Login Form">
@@ -27,6 +28,13 @@
         <button type="submit" class="btn btn-primary">Login</button>
       </div>
     </form>
+    </ng-container>
+    <ng-template #logoutPanel>
+      <div class="logout-confirmation">
+        <p>Are you sure you want to log out?</p>
+        <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
+      </div>
+    </ng-template>
   </section>
 </div>
 
