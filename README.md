@@ -6,9 +6,13 @@ I've been an avid gamer for as long as I can remember. Games are an important pa
 
 ## Current Task
 
-- Welcome page structure (Angular)
+- Registration panel (Angular)
 
 ## Done
+
+### Optimization
+
+- Added and configured Azure Monitor and Open Telemetry for Production and Development
 
 ### Authentication & Authorization
 
