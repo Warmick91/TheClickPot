@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Button } from 'primeng/button';
-import { Card } from 'primeng/card';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { from, switchMap } from 'rxjs';
@@ -13,15 +11,16 @@ import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-pot-auth',
-  imports: [Card, FormsModule, IftaLabelModule, Button, FloatLabelModule, CommonModule],
-  // providers: [AppStore],
+  imports: [FormsModule, IftaLabelModule, FloatLabelModule, CommonModule],
   templateUrl: './pot-auth.component.html',
   styleUrl: './pot-auth.component.scss',
 })
 export class PotAuthComponent {
   email = '';
   password = '';
+  confirmPassword = '';
   errorMessage = '';
+  isRegistering = false;
 
   private readonly _authService = inject(AuthService);
   private readonly _adminService = inject(AdminService);
@@ -58,9 +57,19 @@ export class PotAuthComponent {
       });
   }
 
-  cancel(loginForm: NgForm) {
+  switchMode() {
+    this.isRegistering = !this.isRegistering;
+    console.log('Switching mode to:', this.isRegistering ? 'Register' : 'Login');
+  }
+
+  register() {
+    console.log('Registering user:', this.email);
+    // Add registration logic here
+  }
+
+  cancel(form: NgForm) {
     console.log('(TEST) Submit cancelled. Input fields cleared.');
-    loginForm.reset();
+    form.reset();
     this.errorMessage = '';
   }
 

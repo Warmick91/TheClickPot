@@ -16,9 +16,15 @@ var connectionStringDevelopment = builder.Configuration["AzureMonitor:Connection
 
 openTelemetryBuilder.UseAzureMonitor(options =>
 {
-	if (builder.Environment.IsDevelopment() && !string.IsNullOrWhiteSpace(connectionStringDevelopment))
+	if (builder.Environment.IsDevelopment())
 	{
-		options.ConnectionString = connectionStringDevelopment;
+		if(!string.IsNullOrWhiteSpace(connectionStringDevelopment))
+		{
+			options.ConnectionString = connectionStringDevelopment;
+		} else
+		{
+			Console.WriteLine("Azure Monitor not configured. Connection String is missing from configuration.");
+		}
 	}
 	// If no connection string is set, OpenTelemetry will use the default Azure Monitor settings.
 });

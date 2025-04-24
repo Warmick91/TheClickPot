@@ -4,30 +4,63 @@
       <img alt="Pot Logo" class="login-card-logo" src="images/pot_test_logo.png" />
     </header>
     <ng-container *ngIf="!isAuthenticated(); else logoutPanel">
-    <h2>Login</h2>
-    <h3>Don't have an account? Create one today!</h3>
-    <form #loginForm="ngForm" name="loginForm" (ngSubmit)="login()" aria-label="Login Form">
-      <div class="input-group">
-        <p-floatLabel>
-          <input id="email" name="email" type="text" pInputText [(ngModel)]="email" required />
-          <label for="email">Email</label>
-        </p-floatLabel>
+      <ng-container *ngIf="!isRegistering; else registerPanel">
+        <h2>Login</h2>
+        <h3>Don't have an account? <button class="btn-link" (click)="switchMode()">Create one today!</button></h3>
+        <form #loginForm="ngForm" name="loginForm" (ngSubmit)="login()" aria-label="Login Form">
+          <div class="input-group">
+            <p-floatLabel>
+              <input id="email" name="email" type="text" pInputText [(ngModel)]="email" required />
+              <label for="email">Email</label>
+            </p-floatLabel>
 
-        <p-floatLabel>
-          <input id="password" name="password" type="password" pInputText [(ngModel)]="password" required />
-          <label for="password">Password</label>
-        </p-floatLabel>
-      </div>
+            <p-floatLabel>
+              <input id="password" name="password" type="password" pInputText [(ngModel)]="password" required />
+              <label for="password">Password</label>
+            </p-floatLabel>
+          </div>
 
-      <div *ngIf="errorMessage" class="error-message" role="alert">
-        {{ errorMessage }}
-      </div>
+          <div *ngIf="errorMessage" class="error-message" role="alert">
+            {{ errorMessage }}
+          </div>
 
-      <div class="form-actions">
-        <button type="button" class="btn btn-secondary" (click)="cancel(loginForm)">Cancel</button>
-        <button type="submit" class="btn btn-primary">Login</button>
-      </div>
-    </form>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" (click)="cancel(loginForm)">Cancel</button>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </ng-container>
+      <ng-template #registerPanel>
+        <h2>Registration</h2>
+        <h3>Already have an account? <button class="btn-link" (click)="switchMode()">Login</button></h3>
+        <form #registrationForm="ngForm" name="registrationForm" (ngSubmit)="register()" aria-label="Register Form">
+          <div class="input-group">
+            <p-floatLabel>
+              <input id="email" name="email" type="text" pInputText [(ngModel)]="email" required />
+              <label for="email">Email</label>
+            </p-floatLabel>
+
+            <p-floatLabel>
+              <input id="password" name="password" type="password" pInputText [(ngModel)]="password" required />
+              <label for="password">Password</label>
+            </p-floatLabel>
+
+            <p-floatLabel>
+              <input id="confirmPassword" name="confirmPassword" type="password" pInputText [(ngModel)]="confirmPassword" required />
+              <label for="confirmPassword">Confirm Password</label>
+            </p-floatLabel>
+          </div>
+
+          <div *ngIf="errorMessage" class="error-message" role="alert">
+            {{ errorMessage }}
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" (click)="cancel(registrationForm)">Cancel</button>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </ng-template>
     </ng-container>
     <ng-template #logoutPanel>
       <div class="logout-confirmation">

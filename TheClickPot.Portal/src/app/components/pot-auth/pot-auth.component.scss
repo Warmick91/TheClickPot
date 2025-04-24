@@ -183,3 +183,19 @@ textarea:focus {
 .btn-primary:hover {
   background-color: #7a29cc;
 }
+
+button.btn-link {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  display: inline;
+}
+
+button.btn-link:hover {
+  color: #0056b3;
+  text-decoration: none;
+}
