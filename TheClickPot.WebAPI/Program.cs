@@ -12,13 +12,13 @@ using TheClickPot.WebAPI.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 var openTelemetryBuilder = builder.Services.AddOpenTelemetry();
-var connectionString = builder.Configuration["AzureMonitor:ConnectionString"];
+var connectionStringDevelopment = builder.Configuration["AzureMonitor:ConnectionString_Development"];
 
 openTelemetryBuilder.UseAzureMonitor(options =>
 {
-	if (builder.Environment.IsDevelopment() && !string.IsNullOrWhiteSpace(connectionString))
+	if (builder.Environment.IsDevelopment() && !string.IsNullOrWhiteSpace(connectionStringDevelopment))
 	{
-		options.ConnectionString = connectionString;
+		options.ConnectionString = connectionStringDevelopment;
 	}
 	// If no connection string is set, OpenTelemetry will use the default Azure Monitor settings.
 });
